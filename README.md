@@ -33,7 +33,7 @@ vuelo, así que no hace falta reconfigurar el `namelist.input` y volver a correr
 
 | Grupo | Variables |
 |---|---|
-| Precipitación e hidrometeoros | acumulada y por intervalo, nieve (eq. agua y espesor), **granizo**, **graupel**, fracción de precipitación congelada |
+| Precipitación e hidrometeoros | acumulada y por intervalo, nieve (eq. agua y espesor), **graupel**, granizo, fracción de precipitación congelada |
 | Superficie | T2 con isoterma de 0 °C, punto de rocío, HR, SLP con isobaras y barbas, viento a 10 m, PBLH, temperatura de piel |
 | Sinóptico | geopotencial, temperatura, viento y vorticidad relativa, interpolables a 850/700/500/300/250/200 hPa; altura del nivel de 0 °C |
 | Convección y vertical | reflectividad simulada, W máxima, agua precipitable, CAPE, CIN, temperatura del tope nuboso, nubosidad baja/media/alta, cortes verticales |
@@ -42,6 +42,13 @@ vuelo, así que no hace falta reconfigurar el `namelist.input` y volver a correr
 la configuración por defecto de WRF. La reflectividad se calcula de
 `QRAIN/QSNOW/QGRAUP`, y el nivel de 0 °C interpolando la altura sobre la
 superficie `T = 0`.
+
+**Sobre el granizo**: `HAILNC` solo lo llenan los esquemas de microfísica con
+categoría explícita de granizo (NSSL, Milbrandt). Thompson (`mp_physics=8`) es
+de 6 clases y no la tiene, así que con esa configuración `hail_acc` vale
+siempre 0 y el proxy correcto es `graup_acc`. La variable se mantiene en el
+catálogo para quien corra un esquema que sí la escriba, y avisa de ello en el
+pie de la figura.
 
 ## Decisiones de visualización
 

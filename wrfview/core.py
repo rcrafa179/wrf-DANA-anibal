@@ -458,12 +458,20 @@ def build_catalog() -> List[VarSpec]:
         VarSpec("snowh", "Espesor fisico de nieve", g, "cm",
                 lambda c: c.raw("SNOWH") * 100.0, cmap="BuPu",
                 levels=[0.5, 1, 2, 5, 10, 20, 30, 50, 75, 100], mask_below=True),
+        # OJO: HAILNC solo lo llenan los esquemas con categoria de granizo
+        # (NSSL, Milbrandt...). Con Thompson (mp_physics=8), que es de 6 clases
+        # y no distingue granizo, esta variable vale siempre 0. El proxy
+        # correcto ahi es el graupel.
         VarSpec("hail_acc", "Granizo acumulado", g, "mm",
                 lambda c: c.raw("HAILNC"), cmap="PuRd", levels=HAIL_LEV,
-                mask_below=True),
+                mask_below=True,
+                note="Vale 0 con esquemas sin categoria de granizo, como "
+                     "Thompson (mp_physics=8): usa graupel como proxy"),
         VarSpec("graup_acc", "Graupel acumulado", g, "mm",
                 lambda c: c.raw("GRAUPELNC"), cmap="PuRd", levels=HAIL_LEV,
-                mask_below=True),
+                mask_below=True,
+                note="Con Thompson, el graupel es el proxy de granizo blando "
+                     "en superficie"),
         VarSpec("sr", "Fraccion de precipitacion congelada", g, "0-1",
                 lambda c: c.raw("SR"), cmap="Blues",
                 levels=list(np.arange(0.05, 1.01, 0.05)), extend="neither",

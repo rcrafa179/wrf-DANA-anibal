@@ -1,0 +1,42 @@
+# --- Salidas de WRF: nunca al repositorio ---------------------------------
+wrfout_*
+wrfrst_*
+wrfinput_*
+wrfbdy_*
+wrffdda_*
+wrflowinp_*
+met_em*
+geo_em*
+*.grib
+*.grib2
+*.grb
+gfs_data/
+rsl.out.*
+rsl.error.*
+
+# --- Figuras generadas ----------------------------------------------------
+# Anclado a la raiz con "/": sin la barra inicial, "figuras/" tambien casaria
+# con docs/figuras/ y el README quedaria con las imagenes rotas.
+/figuras/
+/resumen/
+/cortes/
+/metricas_evento.csv
+frames_*/
+evolucion_*.gif
+
+# La muestra curada del README si se versiona.
+!docs/figuras/
+
+# --- Python ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- Sistema --------------------------------------------------------------
+.DS_Store
+.vscode/
+.idea/
